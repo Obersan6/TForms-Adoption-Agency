@@ -1,0 +1,56 @@
+<!-- Some of a pet details:  Name, Species, Photo (if present), Age (if present) 
+ Displays Pet edit form -->
+
+ {% extends 'base.html' %}
+ {% block title %}Pet{% endblock %}
+ 
+ {% block content %}
+ <div class="container mt-4">
+     <!-- Pet Information -->
+     <div class="text-center mb-4">
+         <h1 class="display-4">{{ pet.name }}</h1>
+ 
+         <p><strong>Species:</strong> {{ pet.species }}</p>
+ 
+         {% if pet.photo_url %}
+             <div class="mb-4">
+                 <img src="{{ pet.photo_url }}" alt="{{ pet.name }}" class="img-fluid rounded" style="max-width: 300px;">
+             </div>
+         {% endif %}
+ 
+         {% if pet.age %}
+             <p><strong>Age:</strong> {{ pet.age }}</p>
+         {% endif %}
+     </div>
+ </div>
+ 
+ <div class="container mt-4">
+     <!-- Edit Form -->
+     <h2 class="text-center mb-4">Edit {{ pet.name }}</h2>
+ 
+     <div class="row justify-content-center">
+         <div class="col-md-8">
+             <form method="POST">
+                 <!-- Include the hidden tag -->
+                 {{ form.hidden_tag() }}
+                 <!-- Iterate over the form to create the form template -->
+                 {% for field in form %}
+                     {% if field.widget.input_type != 'hidden' %}
+                         <!-- Fields -->
+                         <div class="form-group mb-3">
+                             {{ field.label(class='form-label') }}
+                             {{ field(class='form-control') }}
+                         </div>
+                     {% endif %}
+                 {% endfor %}
+ 
+                 <div class="text-center">
+                     <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                 </div>
+             </form>    
+         </div>
+     </div>
+ </div>
+ 
+ {% endblock %}
+ 

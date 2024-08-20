@@ -1,0 +1,51 @@
+<!-- List of pets: shows name, photo if present, and displays "Available" in bold if the pet is available for adoption and hyperlink to each pet's page -->
+
+{% extends 'base.html' %}
+{% block title %}Pets{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="display-4 text-center mb-4">Pets</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center header">Name</th>
+                <th class="text-center header">Photo</th>
+                <th class="text-center header">Availability</th>
+                <th class="text-center header">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pet in pets %}
+                <tr>
+                    <td class="text-center name-cell" style="width: 70px;">{{ pet.name }}</td>
+                    <td class="text-center" style="width: 100px;">
+                        {% if pet.photo_url %}
+                            <img src="{{ pet.photo_url }}" alt="{{ pet.name }}" class="img-thumbnail">
+                        {% else %}
+                            <em>No Photo</em>
+                        {% endif %}
+                    </td>
+                    <td class="text-center availability-cell" style="width: 85px;">
+                        {% if pet.available %}
+                            <span class="text-success"><strong>Available</strong></span>
+                        {% else %}
+                            <span class="text-danger">Not Available</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center" style="width: 100px;">
+                        <a href="/{{ pet.id }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="/add" class="btn btn-success btn-lg">Add a pet</a>
+    </div>
+</div>
+
+{% endblock %}
